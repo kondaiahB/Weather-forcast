@@ -1,0 +1,81 @@
+<div style="color:white;background-color: #4aa1f3; padding-top :10px ;padding-bottom: 10px;">
+    <h1 class="text-center">
+        {{title}}
+    </h1>
+</div>
+<div class="container" >
+    <div class="row" style="padding-top: 20px;justify-content: center;">
+        <h3 class="text-center">Enter City Name</h3>
+    </div>
+    <div class="row form-group form-inline" style="padding-top: 20px;justify-content: center;" id="rowDiv">
+        <input type="text" name="city" id="city" [(ngModel)]="cityname" placeholder="city name" class="form-control">
+        <select (change)="forecastOption($event)" [(ngModel)]="selct">
+            <option [ngValue]="selected" selected disabled>Forecast type</option>
+            <option value="current">current</option>
+            <option value="hourly">Hourly</option>
+            <option value="16-days">16-days</option>
+        </select>
+        <button id="submitweather" class="btn btn-primary" (click)="searchcity()"
+            [disabled]="!(cityname && selct)">Search city</button>
+    </div>
+</div>
+<div *ngIf="_currentdata && _searchcity">
+    <div *ngFor="let img of weather.weather">
+        <div class="container" style="padding-top: 30px;">
+            <div class="card align-items-center" style="width: 30rem;background-color:cornsilk">
+                <div>
+                    <img style="width: 100px; height: 100px;" src="http://openweathermap.org/img/w/{{img.icon}}.png">
+                </div>
+                <div class="card-block text-center">
+                    <h4 class="card-title" style="color: red;">{{weather.name}}</h4>
+                    <p class="card-text"><b style="color: #4aa1f3;font-size: large;">{{img.description}}</b></p>
+                </div>
+                <ul class="list-group list-group-flush w-100 align-items-stretch">
+                    <li class="list-group-item text-center d-inline-block">feels like:{{weather.main.feels_like}}</li>
+                    <li class="list-group-item text-center d-inline-block">humidity:{{weather.main.humidity}}</li>
+                    <li class="list-group-item text-center d-inline-block">preasure:{{weather.main.pressure}}</li>
+                    <li class="list-group-item text-center d-inline-block">temp:{{weather.main.temp}}</li>
+                    <li class="list-group-item text-center d-inline-block">temp max:{{weather.main.temp_max}}</li>
+                    <li class="list-group-item text-center d-inline-block">temp min :{{weather.main.temp_min}}</li>
+                </ul>
+                <div class="card-block">
+                    <label>lat:{{weather.coord.lat}}</label><br />
+                    <label>lon:{{weather.coord.lon}}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="_hourlydata && _searchcity">
+    <div *ngFor="let item of weather">
+        <h1>Api is not working...{{item}}</h1>
+    </div>
+</div>
+<div *ngIf="_16daysdata && _searchcity">
+    <div *ngFor="let item of weather.list">
+        <div class="container" style="padding-top: 30px;">
+            <div class="card align-items-center" style="width: 30rem;">
+                <div *ngFor="let li of item.weather">
+                    <img style="width: 100px; height: 100px;" src="http://openweathermap.org/img/w/{{li.icon}}.png">
+                </div>
+                <div class="card-block text-center">
+                    <h4 class="card-title" style="color: red;">{{item.name}}</h4>
+                    <p class="card-text" *ngFor="let li of item.weather"><b
+                            style="color: #4aa1f3;font-size: large;">{{li.description}}</b></p>
+                </div>
+                <ul class="list-group list-group-flush w-100 align-items-stretch">
+                    <li class="list-group-item text-center d-inline-block">feels like:{{item.main.feels_like}}</li>
+                    <li class="list-group-item text-center d-inline-block">humidity:{{item.main.humidity}}</li>
+                    <li class="list-group-item text-center d-inline-block">preasure:{{item.main.pressure}}</li>
+                    <li class="list-group-item text-center d-inline-block">temp:{{item.main.temp}}</li>
+                    <li class="list-group-item text-center d-inline-block">temp max:{{item.main.temp_max}}</li>
+                    <li class="list-group-item text-center d-inline-block">temp min :{{item.main.temp_min}}</li>
+                </ul>
+                <div class="card-block">
+                    <label>lat:{{item.coord.lat}}</label><br />
+                    <label>lon:{{item.coord.lon}}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

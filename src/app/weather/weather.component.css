@@ -1,0 +1,21 @@
+#rowDiv{
+  margin: auto;
+  width: 100%;
+}
+
+input[type="text"],select,button{
+  height: 40px;
+  font-size: 20px;
+} 
+/* #submitweather{
+  height: 40px;
+  font-size: 20px;
+  font-weight: bold;
+} */
+
+.centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 50PX;
+  }
